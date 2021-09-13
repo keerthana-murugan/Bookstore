@@ -1,0 +1,142 @@
+<html>
+    <head>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <style>
+        button{
+            opacity: 95%;
+            font-size:15px;  
+        text-align: center;  
+border: 7px solid skyblue; 
+padding-top: 10px; 
+background-color: black; 
+color: skyblue ;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+display: block;
+        margin: 10px;
+        margin-left: 100px;
+        }
+        h2{
+        border-left: 500px;
+        border-right: 500px;
+        border-style: solid;
+        color :black;
+        }
+        h1{
+            text-align: center;
+        }
+        body{
+            font-size: 20px;
+            background-image: url("https://i.pinimg.com/originals/b5/b0/0b/b5b00be82ad88d8c3f7c7b32d99dcdb4.jpg");
+        }
+            table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    th {
+        border: 1px solid red;
+        text-align: left;
+        padding: 8px;
+        background-color: white;
+        color: blue;
+    }
+
+    tr{
+        color: black;
+        background-color: skyblue;
+    }
+    </style>
+    <body>
+        <h1>BOOK-STORE</h1>
+    <h2 >Use coupon code---"FirstBook" to get Rs.300 off on the total bill.</h2>
+    <div>
+        MENU: <select  id="bname">
+            <option value="js-begginer">JS-BEGINNER</option>
+            <option value="clean-code">CLEAN CODE</option>
+            <option value="core java">CORE JAVA</option>
+        </select> <br><br>
+       Quantity: <input type="number" id="quantity"><br><br>
+    Add-NOTE:    <input type="text" id="desc"><br><br>   
+    Delivery-Mode: <select name="" id="dm">
+        <option value="Take-Away">Take-Away</option>
+        <option value="Home-delivery">Home-delivery</option>
+        <option value="sit-read">Sit AND Read</option>
+    </select><br><br>
+    Book Type: <select name="" id="type">
+        <option value="Paperback">PaperBack</option>
+        <option value="hardcover">Hardcover</option>
+        <option value="kindle">KINDLE</option>
+    </select><br><br>
+   Add Your Adress: <input type="text" id="adress"><br><br>
+    Use Coupon: <input type="text" id="code"><br><br>
+    <button id="submit">Place Order</button>
+    </div> <br>
+    <table id="displayTable">
+        <tr>
+        <th>Book-Name</th>
+        <th>Quantity</th>
+         <th>Note</th>
+        <th>Delivery-Mode</th>
+        <th>Book Type</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Date</th>
+        <th>Adress</th>
+        <th>Total Cost</th>
+        <th id="delete">Delete Order</th>
+    </tr>
+    </table><br><br>
+    </body>
+    <script>
+        $(document).ready(function(){
+            var book=$("#bname");
+            var quantity=$("#quantity");
+            var note=$("#desc");
+            var delivery=$("#dm");
+            var btype=$("#type");
+            var ccode=$("#code");
+            var date= new Date();
+            var Adress=$("#adress");
+            $("#submit").click(function(){
+                var discount=0;
+                var price; 
+                if(book.val()=="js-begginer"){
+                         price=1500;
+                         }else if (book.val()=="clean-code"){
+                            price=200;
+                            }else if(book.val()=="core java"){
+                            price=120;
+                            }else{
+                                price=0;
+                            }
+                            var totalCost=price*quantity.val();      
+                    $("#displayTable tbody").append("<tr id='myTable'> </tr>");
+                    $("#displayTable tbody tr:last").append("<td>"+book.val()+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+quantity.val()+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>" + note.val() + "</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+delivery.val()+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+btype.val()+"</td>");
+                    
+                   if(ccode.val()=="FirstBook"){
+                   totalCost=totalCost-30;
+                   discount=30;
+                     }else{
+                          totalCost=totalCost;
+                        discount=0;  
+                     }
+                     $("#displayTable tbody tr:last").append("<td>"+price+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+discount+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()+"</td>");
+                    $("#displayTable tbody tr:last").append("<td>"+Adress.val()+"</td>");
+
+                     $("#displayTable tbody tr:last").append("<td>"+totalCost+"</td>"); 
+                });
+        });
+                $("#delete").click(function(){
+            $("#myTable").remove();
+        })
+        
+    </script>
+</html>
